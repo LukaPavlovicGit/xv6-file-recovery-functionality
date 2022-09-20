@@ -70,8 +70,8 @@ Example how to generate error that some of the deleted file's blocks are used fo
 5. type ***'writer c 1500'***<br/>
 6. type ***'cd home'***<br/>
 7. type ***'rec b'***<br/>
-Error occured because after we deleted files a and b, we've created file c sized of 1500 bytes which overrides memory blocks of both files a and b.<br/>
-Notice that the file c is occupying file structure where the file 'a' been before.<br/><br/>
+Error occured because after we deleted files 'a' and 'b', we've created file 'c' sized of 1500 bytes which overrides memory blocks of both files 'a' and 'b'.<br/>
+Notice that the file 'c' is occupying file structure where the file 'a' been before.<br/><br/>
 
 
 
