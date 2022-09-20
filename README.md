@@ -47,29 +47,29 @@ The xv6 operating system should be started at this point, and QEMU window should
 ---
 
 Simple example how to create, delete and recover a file:<br/>
-1. type *writer a 500*<br/>
-2. type *rm a*<br/>
-3. type *rec a*<br/>
+1. type ***'writer a 500'***<br/>
+2. type ***'rm a'***<br/>
+3. type ***'rec '***<br/>
 
 Example how to generate error that file structure in which the deleted file have been stored is used for something else:<br/>
-1. type *cd home*<br/>
-2. type *writer a 500*<br/>
-3. type *rm a*<br/>
-4. type *cd ..*<br/>
-5. type *writer b 500*<br/>
-6. type *cd home*<br/>
-7. type *rec a*<br/>
+1. type ***'cd home'***<br/>
+2. type ***'writer a 500'***<br/>
+3. type ***'rm a'***<br/>
+4. type ***'cd ..'***<br/>
+5. type ***'writer b 500'***<br/>
+6. type ***'cd home'***<br/>
+7. type ***'rec a'***<br/>
 Error occured because after we deleted file 'a', we've created file 'b' in different directory who's now occupying file structure where the file 'a' been before.<br/><br/>
 
 Example how to generate error that some of the deleted file's blocks are used for something else:
-1. type *cd home*
-2. type *writer a 10*
-3. type *writer b 10*
-3. type *rm a b*
-4. type *cd ..*
-5. type *writer c 1500*
-6. type *cd home*
-7. type *rec b*
+1. type ***'cd home'***
+2. type ***'writer a 10'***
+3. type ***'writer b 10'***
+3. type ***'rm a b'***
+4. type ***'cd ..'***
+5. type ***'writer c 1500'***
+6. type ***'cd home'***
+7. type ***'rec b'***
 Error occured because after we deleted files a and b, we've created file c sized of 1500 bytes which overrides memory blocks of both files a and b.<br/>
 Notice that the file c is occupying file structure where the file 'a' been before.
 
