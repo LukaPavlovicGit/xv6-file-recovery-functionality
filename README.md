@@ -4,9 +4,9 @@
 Xv6 modifed to support ''best effort'' recovery. It only works for files. Directory recovery is not supported.
 File is recoverable only if it's integrity remained untouched. That means that neither of file's memory blocks is used by other file or directory.
 
-To make this task possible i've made two major changes of xv6 OS.
-First is to keep track of memory blokcs which are part of a file by adding array[memory block address] in a file structure.<
-Second is to assign a *del* flag to each file in the directory which indicates whether a file is deleted or not by adding del flag dirent structure.
+To make this task possible i've made two major changes of xv6 OS.<br/>
+First is to keep track of memory blokcs which are part of a file by adding array[memory block address] in a file structure.<br/>
+Second is to assign a *del* flag to each file in the directory which indicates whether a file is deleted or not by adding del flag dirent structure.<br/>
 
 By default, when file is deleted in xv6 all of it's content dissappear and set busy flag to zero which indicates whether a file structure can be used by other directories to store data. I've changed that in a such way that if file is deleted all of a file's data remain on disk as it was, but to set busy flag to 0 and del flag to 1.
 
