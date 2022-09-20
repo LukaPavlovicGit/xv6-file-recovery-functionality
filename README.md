@@ -38,10 +38,11 @@ Additional changes to the xv6 OS:
 
 ---
 
-- To start the program type next commands:
+- To start the program type commands:
 1. Open the terminal in project's directory<br/>
 2. Call command ***'make clean'***<br/>
 3. Then call command ***'make qemu'***<br/>
+
 The xv6 operating system should be started at this point, and QEMU window should be displayed<br/><br/>
 
 ---
