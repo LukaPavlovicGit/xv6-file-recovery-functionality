@@ -38,7 +38,7 @@ Additional changes to the xv6 OS:
 
 ---
 
-To start the program type next commands:
+- To start the program type next commands:
 1. Open the terminal in project's directory<br/>
 2. Call command ***'make clean'***<br/>
 3. Then call command ***'make qemu'***<br/>
@@ -46,12 +46,12 @@ The xv6 operating system should be started at this point, and QEMU window should
 
 ---
 
-Simple example how to create, delete and recover a file:<br/>
+- Simple example how to create, delete and recover a file:<br/>
 1. type ***'writer a 500'***<br/>
 2. type ***'rm a'***<br/>
 3. type ***'rec a'***<br/>
 
-Example how to generate error that file structure in which the deleted file have been stored is used for something else:<br/>
+- Example how to generate error that file structure in which the deleted file have been stored is used for something else:<br/>
 1. type ***'cd home'***<br/>
 2. type ***'writer a 500'***<br/>
 3. type ***'rm a'***<br/>
@@ -61,7 +61,7 @@ Example how to generate error that file structure in which the deleted file have
 7. type ***'rec a'***<br/>
 Error occured because after we deleted file 'a', we've created file 'b' in different directory who's now occupying file structure where the file 'a' been before.<br/><br/>
 
-Example how to generate error that some of the deleted file's blocks are used for something else:
+- Example how to generate error that some of the deleted file's blocks are used for something else:
 1. type ***'cd home'***<br/>
 2. type ***'writer a 10'***<br/>
 3. type ***'writer b 10'***<br/>
