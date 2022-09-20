@@ -1,5 +1,5 @@
 # xv6 Operating System
-## Adding interprocess communication
+## Adding file recovery functionality
 
 Xv6 modifed to support ''best effort'' recovery. It only works for files. Directory recovery is not supported.<br/>
 File is recoverable only if it's integrity remained untouched. That means that neither of file's memory blocks is used by other file or directory.<br/>
