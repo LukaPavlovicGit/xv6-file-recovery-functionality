@@ -16,13 +16,13 @@ Additional changes to the xv6 OS:
       
     -   **int lsdel(char \*path, char \*result)**<br/>
         Lists all deleted files from directory.<br/>
-        *param path* - path to the directory to be listing from.<br/>
-        *param result* - names of all deleted files will be pushed in the result.<br/>
+        @*param path* - path to the directory to be listing from.<br/>
+        @*param result* - names of all deleted files will be pushed in the result.<br/>
         Returning value is the number of deleted files in directory or -1 if the path is wrong.<br/>
 
     -   **int rec(char \*path)**<br/>
         Tries ''best effort'' recovery of the file.  <br/>      
-        *param path* - path to the file to be recovered.<br/>
+        @*param path* - path to the file to be recovered.<br/>
         Returning value is : 0-successful recovery, 1-wrong path, 2-file not found in the directory, 3-file structure is used for somethig else, 4-some of the file's memory blocks is used for something else.<br/>
 
 2. Three user programs:
