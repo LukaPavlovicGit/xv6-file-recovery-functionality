@@ -46,12 +46,12 @@ The xv6 operating system should be started at this point, and QEMU window should
 
 ---
 
-- Simple example how to create, delete and recover a file:<br/>
+- Simple example how to create, delete and recover a file:
 1. type ***'writer a 500'***<br/>
 2. type ***'rm a'***<br/>
-3. type ***'rec a'***<br/>
+3. type ***'rec a'***<br/><br/>
 
-- Example how to generate error that file structure in which the deleted file have been stored is used for something else:<br/>
+- Example how to generate error that file structure in which the deleted file have been stored is used for something else:
 1. type ***'cd home'***<br/>
 2. type ***'writer a 500'***<br/>
 3. type ***'rm a'***<br/>
