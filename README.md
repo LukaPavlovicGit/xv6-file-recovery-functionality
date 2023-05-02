@@ -1,4 +1,7 @@
 # xv6 Operating System
+
+## [Official project specification](OS-Domaći2.pdf)
+
 ## Adding file recovery functionality
 
 Xv6 modifed to support ''best effort'' recovery. It only works for files. Directory recovery is not supported.<br/>
