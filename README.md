@@ -1,17 +1,17 @@
 # xv6 Operating System
 
-## [Official project specification](OS-Domaći2.pdf)
+## [project specification](OS-Domaći2.pdf)
 
 ## Adding file recovery functionality
 
-Xv6 modifed to support ''best effort'' recovery. It only works for files. Directory recovery is not supported.<br/>
-File is recoverable only if it's integrity remained untouched. That means that neither of file's memory blocks is used by other file or directory.<br/>
+Xv6 has been changed to support best effort recovery. This only works for files. Directory recovery is not supported.
+A file can only be recovered if its integrity is untouched. This means that none of the file's memory blocks are used by another file or directory.<br/>
 
-To make this task possible i've made two major changes of xv6 OS.<br/>
-- First is to keep track of memory blocks which are part of a file by adding array[memory block address] in a file structure.<br/>
-- Second is to assign a flag to each file in the directory which indicates whether a file is deleted or not by adding ***del*** attribute in the dirent structure.<br/>
+To make this task possible, I've made two significant changes to xv6.<br/>
+- The first is to keep track of the memory blocks that are part of a file by adding array[memory block address] to a file structure.<br/>
+- Second, each file in the directory is assigned a flag indicating whether or not a file is deleted by including the ***del*** attribute in the dirent structure.<br/>
 
-By default, when file is deleted in xv6 all of it's content dissappear and set busy flag to zero which indicates that a file structure can be used by other directories to store data. I've changed that in a such way that if file is deleted all of file's data remain on disk as it was, but to set busy flag to 0 and del flag to 1. Doing this we've preserved file's data, but made file structure available for reuse.<br/>
+By default, when a file is deleted in xv6, all its contents disappear and the busy flag is set to zero, indicating that a file structure can be used by other directories to store data. I have changed this so that when a file is deleted, all of its data remains on disk, but the busy flag is set to 0 and the del flag is set to 1. This way the data of the file is preserved, but the file structure is available for reuse.<br/>
 
 Additional changes to the xv6 OS:
 
@@ -46,7 +46,7 @@ Additional changes to the xv6 OS:
 2. Call command ***'make clean'***<br/>
 3. Then call command ***'make qemu'***<br/>
 
-The xv6 operating system should be started at this point, and QEMU window should be displayed<br/><br/>
+The xv6 operating system should start at this point, and the QEMU window should be displayed.<br/><br/>
 
 ---
 
@@ -55,7 +55,7 @@ The xv6 operating system should be started at this point, and QEMU window should
 2. type ***'rm a'***<br/>
 3. type ***'rec a'***<br/><br/>
 
-- Example how to generate error that file structure in which the deleted file have been stored is used for something else:
+- Example of an error message that the file structure where the deleted file was stored is used for something else:
 1. type ***'cd home'***<br/>
 2. type ***'writer a 500'***<br/>
 3. type ***'rm a'***<br/>
@@ -63,9 +63,9 @@ The xv6 operating system should be started at this point, and QEMU window should
 5. type ***'writer b 500'***<br/>
 6. type ***'cd home'***<br/>
 7. type ***'rec a'***<br/>
-Error occured because after we deleted file 'a', we've created file 'b' in different directory who's now occupying file structure where the file 'a' been before.<br/><br/>
+The error occurred because after deleting file 'a' we created file 'b' in another directory, which now occupies the file structure where file 'a' was before.
 
-- Example how to generate error that some of the deleted file's blocks are used for something else:
+- Example of an error message stating that some of the blocks of the deleted file are used for something else:
 1. type ***'cd home'***<br/>
 2. type ***'writer a 10'***<br/>
 3. type ***'writer b 10'***<br/>
@@ -74,8 +74,8 @@ Error occured because after we deleted file 'a', we've created file 'b' in diffe
 5. type ***'writer c 1500'***<br/>
 6. type ***'cd home'***<br/>
 7. type ***'rec b'***<br/>
-Error occured because after we deleted files 'a' and 'b', we've created file 'c' sized of 1500 bytes which overrides memory blocks of both files 'a' and 'b'.<br/>
-Notice that the file 'c' is occupying file structure where the file 'a' been before.<br/><br/>
+The error occurred because after deleting files 'a' and 'b', we created file 'c' with a size of 1500 bytes, which overwrites the memory blocks of both files 'a' and 'b'.
+Note that the file 'c' occupies the file structure where the file 'a' was before..<br/><br/>
 
 
 
