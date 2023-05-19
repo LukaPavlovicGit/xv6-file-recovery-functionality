@@ -2,7 +2,7 @@
 
 ## [project specification](OS-Domaći2.pdf)
 
-## Adding file recovery functionality
+## Adding file recovery support
 
 Xv6 has been changed to support best effort recovery. This only works for files. Directory recovery is not supported.
 A file can only be recovered if its integrity is untouched. This means that none of the file's memory blocks are used by another file or directory.<br/>
@@ -75,7 +75,7 @@ The error occurred because after deleting file 'a' we created file 'b' in anothe
 6. type ***'cd home'***<br/>
 7. type ***'rec b'***<br/>
 The error occurred because after deleting files 'a' and 'b', we created file 'c' with a size of 1500 bytes, which overwrites the memory blocks of both files 'a' and 'b'.
-Note that the file 'c' occupies the file structure where the file 'a' was before..<br/><br/>
+Note that the file 'c' occupies the file structure where the file 'a' was before.<br/><br/>
 
 
 
