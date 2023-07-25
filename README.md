@@ -1,8 +1,8 @@
-# xv6 Operating System
+# [video demonstration](https://drive.google.com/file/d/1xie6yoz6gtYFC3n2xgE4xUmpk_Tbwmpo/view?usp=drive_link)
 
-## [project specification](OS-Domaći2.pdf)
+# [project specification](OS-Domaći2.pdf)
 
-## Adding file recovery support
+## Adding file recovery support to XV6 Operation System
 
 Xv6 has been changed to support best effort recovery. This only works for files. Directory recovery is not supported.
 A file can only be recovered if its integrity is untouched. This means that none of the file's memory blocks are used by another file or directory.<br/>
