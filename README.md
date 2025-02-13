@@ -1,84 +1,91 @@
-# [video demonstration](https://drive.google.com/file/d/1xie6yoz6gtYFC3n2xgE4xUmpk_Tbwmpo/view?usp=drive_link)
+## Adding File Recovery Support to the XV6 Operating System
 
-# [project specification](OS-Domaći2.pdf)
 
-## Adding file recovery support to XV6 Operation System
+# [Video Demonstration](https://drive.google.com/file/d/1xie6yoz6gtYFC3n2xgE4xUmpk_Tbwmpo/view?usp=drive_link)
+# [Project Specification](OS-Domaći2.pdf)
 
-Xv6 has been changed to support best effort recovery. This only works for files. Directory recovery is not supported.
-A file can only be recovered if its integrity is untouched. This means that none of the file's memory blocks are used by another file or directory.<br/>
+Xv6 has been modified to support best-effort file recovery. This feature only works for files; directory recovery is not supported. A file can only be recovered if its integrity remains intact, meaning that none of its data blocks have been reused by another file or directory.<br/>
 
-To make this task possible, I've made two significant changes to xv6.<br/>
-- The first is to keep track of the memory blocks that are part of a file by adding array[memory block address] to a file structure.<br/>
-- Second, each file in the directory is assigned a flag indicating whether or not a file is deleted by including the ***del*** attribute in the dirent structure.<br/>
+To make this possible, I introduced two significant changes to XV6:<br/>
+1. **Track File Blocks:**  
+   Each file now has an array of its memory block addresses, stored in its file structure.  
+2. **Deleted Flag in Directory Entries:**  
+   Each directory entry has a `del` flag indicating whether the file is deleted.  
 
-By default, when a file is deleted in xv6, all its contents disappear and the busy flag is set to zero, indicating that a file structure can be used by other directories to store data. I have changed this so that when a file is deleted, all of its data remains on disk, but the busy flag is set to 0 and the del flag is set to 1. This way the data of the file is preserved, but the file structure is available for reuse.<br/>
+By default, when a file is deleted in XV6, all its content is removed, and the busy flag is cleared (set to 0). Consequently, the file structure can be reused for storing data. I changed this behavior so that when a file is deleted, all of its data remains on disk, but the busy flag is set to 0, and the `del` flag is set to 1. This way, the file’s data is preserved while the file structure remains available for reuse.<br/>
 
-Additional changes to the xv6 OS:
+### Additional Changes to the XV6 OS
 
-1. Two system calls :
+1. **Two System Calls**  
+    - **`int lsdel(char *path, char *result)`**  
+      Lists all deleted files in a given directory.  
+      - **`path`**: Path to the directory to search.  
+      - **`result`**: A buffer where names of all deleted files are appended.  
+      - **Return Value**: The number of deleted files in the directory, or **-1** if the path is invalid.  
+
+    - **`int rec(char *path)`**  
+      Attempts a "best-effort" recovery of a deleted file.  
+      - **`path`**: Path to the file to be recovered.  
+      - **Return Value**:  
+        - **0** = Recovery successful  
+        - **1** = Invalid path  
+        - **2** = File not found in the directory  
+        - **3** = File structure is already in use by something else  
+        - **4** = Some of the file’s blocks are used by another file or directory  
+
+2. **Three User Programs**  
+    - **`lsdel [path]`**  
+      Prints deleted files from the specified directory. If no path is provided, it defaults to the current directory.  
       
-    -   **int lsdel(char \*path, char \*result)**<br/>
-        Lists all deleted files from directory.<br/>
-        @*param \*path* - path to the directory to be listing from.<br/>
-        @*param \*result* - names of all deleted files will be pushed in the result.<br/>
-        Returning value is the number of deleted files in directory or -1 if the path is wrong.<br/>
-
-    -   **int rec(char \*path)**<br/>
-        Tries ''best effort'' recovery of the file.<br/>      
-        @*param \*path* - path to the file to be recovered.<br/>
-        Returning value is : 0-successful recovery, 1-wrong path, 2-file not found in the directory, 3-file structure is used for somethig else, 4-some of the file's memory blocks is used for something else.<br/>
-
-2. Three user programs:
-
-    -   **lsdel [path]**<br/>
-        Prints deleted files from the directory given by the path. If the path is omited, then it considers current directory by default.<br/>
-    
-    -   **rec \<path\>**<br/>
-        Tries to recover a file given by the path or reports the error if it's not possible.<br/>
-    
-    -   **writter \<filename\> \<numberOfBytes\>**<br/>
-        Creates file with a file name \<filename\> and size of \<numberOfBytes\>.<br/>
+    - **`rec <path>`**  
+      Attempts to recover a file at the specified path, or prints an error message if recovery is not possible.  
+      
+    - **`writer <filename> <numberOfBytes>`**  
+      Creates a file named `<filename>` of size `<numberOfBytes>`.  
 
 ---
 
-- To start the program type commands:
-1. Open the terminal in project's directory<br/>
-2. Call command ***'make clean'***<br/>
-3. Then call command ***'make qemu'***<br/>
+### How to Run
 
-The xv6 operating system should start at this point, and the QEMU window should be displayed.<br/><br/>
+1. Open a terminal in the project’s directory.  
+2. Run **`make clean`**.  
+3. Run **`make qemu`**.  
+
+At this point, the XV6 operating system should start, and a QEMU window will be displayed.<br/>
 
 ---
 
-- Simple example how to create, delete and recover a file:
-1. type ***'writer a 500'***<br/>
-2. type ***'rm a'***<br/>
-3. type ***'rec a'***<br/><br/>
+### Simple Example: Create, Delete, and Recover a File
 
-- Example of an error message that the file structure where the deleted file was stored is used for something else:
-1. type ***'cd home'***<br/>
-2. type ***'writer a 500'***<br/>
-3. type ***'rm a'***<br/>
-4. type ***'cd ..'***<br/>
-5. type ***'writer b 500'***<br/>
-6. type ***'cd home'***<br/>
-7. type ***'rec a'***<br/>
-The error occurred because after deleting file 'a' we created file 'b' in another directory, which now occupies the file structure where file 'a' was before.
+1. Type **`writer a 500`**  
+2. Type **`rm a`**  
+3. Type **`rec a`**  
 
-- Example of an error message stating that some of the blocks of the deleted file are used for something else:
-1. type ***'cd home'***<br/>
-2. type ***'writer a 10'***<br/>
-3. type ***'writer b 10'***<br/>
-3. type ***'rm a b'***<br/>
-4. type ***'cd ..'***<br/>
-5. type ***'writer c 1500'***<br/>
-6. type ***'cd home'***<br/>
-7. type ***'rec b'***<br/>
-The error occurred because after deleting files 'a' and 'b', we created file 'c' with a size of 1500 bytes, which overwrites the memory blocks of both files 'a' and 'b'.
-Note that the file 'c' occupies the file structure where the file 'a' was before.<br/><br/>
+---
 
+### Example: File Structure Reused
 
+1. Type **`cd home`**  
+2. Type **`writer a 500`**  
+3. Type **`rm a`**  
+4. Type **`cd ..`**  
+5. Type **`writer b 500`**  
+6. Type **`cd home`**  
+7. Type **`rec a`**  
 
+The error occurs because, after deleting file **`a`**, file **`b`** was created in another directory, which reused the file structure previously occupied by **`a`**.
 
+---
 
+### Example: Overwritten Memory Blocks
 
+1. Type **`cd home`**  
+2. Type **`writer a 10`**  
+3. Type **`writer b 10`**  
+4. Type **`rm a b`**  
+5. Type **`cd ..`**  
+6. Type **`writer c 1500`**  
+7. Type **`cd home`**  
+8. Type **`rec b`**  
+
+The error occurs because, after deleting files **`a`** and **`b`**, we created **`c`** (1500 bytes), which overwrote the memory blocks used by both **`a`** and **`b`**. Note that **`c`** also reused the file structure that **`a`** occupied.
